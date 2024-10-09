@@ -27,9 +27,15 @@ function getRandomIntInclusive() {
     return Math.floor(rand);
 }
 
+// Добавила проверку на равенство рандомных чисел
+
 function isContainsRandomValues(array) {
     const randomValue1 = getRandomIntInclusive();
     const randomValue2 = getRandomIntInclusive();
+
+    if (randomValue1 === randomValue2) {
+        return array.includes(randomValue1);
+    }
 
     return array.includes(randomValue1) && array.includes(randomValue2);
 }
@@ -42,20 +48,15 @@ function getMultiplyItemOfArray(array) {
 
 // Задание 6.
 
+// Изначально добавляла проверки, так как посчитала, что условие должно выполняться полностью (т.е. должен возвращаться
+// массив из 4-х элементов). Передала.
+
 function getTwoPrevAndTwoNextValues(array) {
-    if (array.length < 5) return [];
-
-    for (let i = 2; i < array.length - 2; i++) {
+    for (let i = 0; i < array.length; i++) {
         if (array[i] % 2 === 0 && array[i] % 3 === 0) {
-            const start = i - 2;
-            const end = i + 3;
-
-            let resultArray = array.slice(start, end);
-            resultArray.splice(2 ,1);
-
-            return resultArray;
+            return array.slice(Math.max(i - 2, 0), i).concat(array.slice(i + 1, i + 3));
         }
     }
-
-    return [];
 }
+
+getTwoPrevAndTwoNextValues([7, 9, 18, 3, 4, 6, 9, 6, 5]);
